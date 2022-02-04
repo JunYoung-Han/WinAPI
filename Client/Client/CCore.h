@@ -83,7 +83,7 @@ private:
 	void update();
 	void render();
 
-private:
-	CCore();
-	~CCore();
+public:
+	const HWND	GetMainHwnd() { return m_hWnd; }
+
 };

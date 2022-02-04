@@ -20,4 +20,10 @@
 						{\
 							static type mgr;\
 								return &mgr;\
-						}
+						}\
+					private:\
+						type();\
+						~type();
+
+#define fDT CTimeMgr::GetInst()->GetfDt()
+#define DT CTimeMgr::GetInst()->GetDt()

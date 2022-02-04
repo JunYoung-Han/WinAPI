@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "CCore.h"
 #include "CObject.h"
+#include "CTimeMgr.h"
+#include "CKeyMgr.h"
+
 
 CObject g_obj;
 
@@ -30,8 +33,12 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 	m_hDC = GetDC(m_hWnd);
 
-	g_obj.m_ptPos = POINT{ m_ptResolution.x / 2, m_ptResolution.y / 2 };
-	g_obj.m_ptScale = POINT{ 100, 100 };
+	// Manager 초기화
+	CTimeMgr::GetInst()->init();
+	CKeyMgr::GetInst()->init();
+
+	g_obj.SetPos(Vec2((float)(m_ptResolution.x / 2), (float)(m_ptResolution.y / 2)));
+	g_obj.SetScale(Vec2( 100, 100 ));
 
 	return S_OK;
 }
@@ -39,56 +46,53 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 void CCore::progress()
 {
-	// 1초에 프로세스 함수의 실행 횟수 체크
-	static int callcount = 0;
-	++callcount;
-	static int iCount = 0;
-	static int iPrev = GetTickCount();
-	if (GetTickCount() - iPrev > 1000)
-	{
-		iPrev = GetTickCount();
-		callcount = 0;
-	}
+	// Manager Update
+	CTimeMgr::GetInst()->update();
 
 	update();
 
 	render();
 }
 
-#define MOVEPIX	2
-void CCore::update()
+#define MOVEPIX 2
+void CCore::update() //1 프레임
 {
+	Vec2 vPos = g_obj.GetPos();
 	// 변경점들을 확인하는 곳.
 
 	// 비동기 키 입출력 함수.
 	// => 이 코드가 수행되는 순간 체크함. (백그라운드여도 항상 실행됨.)
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)	// 지금 이순간의 값 확인하고 싶은 때 0x8000 젤 상위 비트 확인하면 됨.
 	{
-		g_obj.m_ptPos.x -= MOVEPIX;
+		vPos.x -= 1000.f * fDT; // 프레임 당 걸린시간마다 여기 탐.;
+		// ★ 즉!!!! 컴터 사양 관계 없이,  (누른시간)걸린 시간 만큼! 가게 된다.!!!
+		// ★ 즉!!!!!!!!!!!!!! ★★★ 1초당 1픽셀!!!! ★★★★
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)	// 지금 이순간의 값 확인하고 싶은 때 0x8000 젤 상위 비트 확인하면 됨.
 	{
-		g_obj.m_ptPos.x += MOVEPIX;
+		vPos.x += 1000.f * CTimeMgr::GetInst()->GetfDt();;
 	}
 	if (GetAsyncKeyState(VK_UP) & 0x8000)	// 지금 이순간의 값 확인하고 싶은 때 0x8000 젤 상위 비트 확인하면 됨.
 	{
-		g_obj.m_ptPos.y -= MOVEPIX;
+		vPos.y -= 1000.f * CTimeMgr::GetInst()->GetfDt();;
 	}
 
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)	// 지금 이순간의 값 확인하고 싶은 때 0x8000 젤 상위 비트 확인하면 됨.
 	{
-		g_obj.m_ptPos.y += MOVEPIX;
+		vPos.y += 1000.f * CTimeMgr::GetInst()->GetfDt();;
 	}
-
+	g_obj.SetPos(vPos);
 }
 
 void CCore::render()
 {
+	Vec2 vPos = g_obj.GetPos();
+	Vec2 vScale = g_obj.GetScale();
 	// 실제 그리는 곳.
 	Rectangle(m_hDC
-		, g_obj.m_ptPos.x - g_obj.m_ptScale.x / 2
-		, g_obj.m_ptPos.y - g_obj.m_ptScale.y / 2
-		, g_obj.m_ptPos.x + g_obj.m_ptScale.x / 2
-		, g_obj.m_ptPos.y + g_obj.m_ptScale.y / 2);
+		, int(vPos.x - vScale.x / 2.f)
+		, int(vPos.y - vScale.y / 2.f)
+		, int(vPos.x + vScale.x / 2.f)
+		, int(vPos.y + vScale.y / 2.f));
 }
