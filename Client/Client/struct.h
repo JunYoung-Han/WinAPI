@@ -2,8 +2,8 @@
 
 struct Vec2
 {
-	double x;
-	double y;
+	float x;
+	float y;
 
 public:
 	Vec2()

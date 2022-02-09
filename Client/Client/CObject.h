@@ -4,11 +4,11 @@
 
 class CObject
 {
-	
-/*
-public:
-	POINT m_ptPos;
-	POINT m_ptScale;*/
+
+	/*
+	public:
+		POINT m_ptPos;
+		POINT m_ptScale;*/
 
 private:
 	Vec2	m_vPos;
@@ -22,8 +22,12 @@ public:
 	Vec2 GetScale() { return m_vScale; }
 
 public:
+	void update();
+	void render(HDC _dc);
+
+public:
 	CObject();
-	~CObject();
+	virtual ~CObject();	// 부모 객체의 포인터로 자식을 접근하기 때문에 자식의 소멸자에 접근하려면 부모소멸자를 가상함수로 선언.
 
 };
 

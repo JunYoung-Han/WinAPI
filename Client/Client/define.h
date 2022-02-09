@@ -25,5 +25,27 @@
 						type();\
 						~type();
 
-//#define fDT CTimeMgr::GetInst()->GetfDt()
-//#define DT CTimeMgr::GetInst()->GetDt()
+#define fDT CTimeMgr::GetInst()->GetfDt()
+#define DT CTimeMgr::GetInst()->GetDt()
+
+
+enum class GROUP_TYPE
+{
+	DEFAULT,
+	PLAYER,
+	MISSILE,
+	MONSTER,
+
+	END = 32,
+};
+
+// ¾À ±¸¼º.
+enum class SCENE_TYPE
+{
+	TOOL,
+	START,
+	STAGE_01,
+	STAGE_02,
+
+	END,
+};
