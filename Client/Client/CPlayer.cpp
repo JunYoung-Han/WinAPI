@@ -26,7 +26,7 @@ void CPlayer::update()
 	{
 		vPos.x += 300.f * fDT;
 	}
-	if (KEY_HOLD(KEY::B))
+	if (KEY_TAP(KEY::B))
 	{
 		ChangeMissile();
 	}
