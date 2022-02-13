@@ -6,7 +6,7 @@
 #include "CSceneMgr.h"
 
 
-CObject g_obj;
+// CObject g_obj;
 
 CCore::CCore()
 	: m_hWnd(0)

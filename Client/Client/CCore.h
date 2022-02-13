@@ -53,7 +53,7 @@ private:
 // Data 영역에 객체 생성하기
 class CCore
 {
-	
+
 	// 정적멤버로 인스턴스를 얻어옴. -> 객체 없이 호출해서 받아와야해서.
 	// 동적할당으로 객체 생성하는 방법보다 훨씬 간단하다.
 	// 관리자급 클래스로 쓸때 많이 쓰는 방식. (리소스를 불러오는 방식)
@@ -88,5 +88,6 @@ private:
 
 public:
 	const HWND	GetMainHwnd() { return m_hWnd; }
+	const POINT GetResolution() { return m_ptResolution; }
 
 };

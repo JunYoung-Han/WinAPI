@@ -1,6 +1,7 @@
 #pragma once
 
-// 화면에 존재하는 물체 하나하나
+// : 화면에 존재하는 물체 하나하나
+// : 추상 클래스
 
 class CObject
 {
@@ -22,8 +23,8 @@ public:
 	Vec2 GetScale() { return m_vScale; }
 
 public:
-	void update();
-	void render(HDC _dc);
+	virtual void update() = 0;
+	virtual void render(HDC _dc);
 
 public:
 	CObject();
