@@ -4,13 +4,31 @@ struct Vec2
 {
 	float x;
 	float y;
-//
-//public:
-//	Vec2& operator = (POINT _pt)
-//	{
-//		x = (float)_pt.x;
-//		y = (float)_pt.y;
-//	}
+
+public:
+	float Length()
+	{
+		return sqrt(x * x + y * y);
+	}
+
+	// 해당 벡터의 각도 단위를 1로 해주기 위해
+	Vec2& Normalize()
+	{
+		float fLen = Length();
+
+		assert(fLen != 0.f);
+		x /= fLen;
+		y /= fLen;
+		return *this;
+	}
+
+	//
+	//public:
+	//	Vec2& operator = (POINT _pt)
+	//	{
+	//		x = (float)_pt.x;
+	//		y = (float)_pt.y;
+	//	}
 
 public:
 	Vec2()

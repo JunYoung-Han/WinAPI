@@ -8,17 +8,19 @@ class CMissile :
 	public CObject
 {
 private:
-	float	m_fDir; // 위 아래 방향
 	float	m_fSpeed;
+	float	m_fTheta; // 이동방향
+
+	Vec2	m_vDir;
 
 public:
-	void SetDir(bool _bUp)
+	void SetDir(float _fTheta) { m_fTheta = _fTheta; }
+	void SetDir(Vec2 _vDir)
 	{
-		if (_bUp)
-			m_fDir = -1.f;
-		else
-			m_fDir = 1.f;
+		m_vDir = _vDir; 
+		m_vDir.Normalize();
 	}
+
 
 public:
 	void SetSpeed(float _f) { m_fSpeed = _f; }
