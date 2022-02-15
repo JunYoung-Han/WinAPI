@@ -18,6 +18,7 @@ private:
 public:
 	void init();
 	void update();
+	void render();
 
 public:
 	double GetDt() { return m_dDT; }

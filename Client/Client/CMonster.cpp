@@ -44,12 +44,12 @@ void CMonster::update()
 	{
 		if (m_bMissileType)
 		{
-			CreateMissile();
+			// CreateMissile();
 			m_bMissileType = false;
 		}
 		else
 		{
-			CreateMissile2();
+			// CreateMissile2();
 			m_bMissileType = true;
 		}
 		m_fAcc = 0;

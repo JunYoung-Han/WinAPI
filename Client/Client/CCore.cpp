@@ -4,6 +4,7 @@
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
+#include "CPathMgr.h"
 
 
 // CObject g_obj;
@@ -51,6 +52,7 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 
 	// Manager 초기화
+	CPathMgr::GetInst()->init();
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
 	CSceneMgr::GetInst()->init();
@@ -67,7 +69,7 @@ void CCore::progress()
 	// CCore 함수.
 	// update();
 	// render();
-	
+
 	// Manager Update
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
@@ -85,6 +87,7 @@ void CCore::progress()
 	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y
 		, m_memDC, 0, 0, SRCCOPY);
 
+	// CTimeMgr::GetInst()->render();
 }
 
 
