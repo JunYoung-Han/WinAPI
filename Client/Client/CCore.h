@@ -88,6 +88,7 @@ private:
 
 public:
 	const HWND	GetMainHwnd() { return m_hWnd; }
+	const HDC	GetMainDC() { return m_hDC; }
 	const POINT GetResolution() { return m_ptResolution; }
 
 };

@@ -1,14 +1,18 @@
 #pragma once
 #include "CObject.h"
 
+class CTexture;
+
 class CPlayer :
 	public CObject
 {
 private:
 	bool m_bMissileType;
+	CTexture* m_pTex;
 
 public:
 	virtual void update();
+	virtual void render(HDC _dc);
 
 private:
 	void CreateMissile();
@@ -16,12 +20,7 @@ private:
 	void ChangeMissile() { m_bMissileType = !m_bMissileType; }
 
 public:
-	CPlayer()
-		: m_bMissileType(true)
-	{
-
-	}
-	~CPlayer()
-	{}
+	CPlayer();
+	~CPlayer();
 
 };

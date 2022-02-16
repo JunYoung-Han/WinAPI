@@ -6,6 +6,21 @@
 #include "CMissile2.h"
 #include "CSceneMgr.h"
 #include "CScene.h"
+#include "CTexture.h"
+#include "CPathMgr.h"
+#include "CResMgr.h"
+
+CPlayer::CPlayer()
+	: m_bMissileType(true)
+	, m_pTex(nullptr)
+{
+	// Texture 로딩
+	m_pTex = CResMgr::GetInst()->LoadTexture(L"jy", L"texture\\jy64.bmp");
+}
+
+CPlayer::~CPlayer()
+{
+}
 
 void CPlayer::update()
 {
@@ -42,6 +57,34 @@ void CPlayer::update()
 	SetPos(vPos);
 }
 
+void CPlayer::render(HDC _dc)
+{
+	// 입력시엔 음수가 될 수 있어서. (화면 밖 넘어갈 시)
+	int iWidth = (int)m_pTex->Width();
+	int iHeight = (int)m_pTex->Height();
+
+	Vec2 vPos = GetPos();
+
+
+	/*
+	BitBlt(_dc
+		, (int)(vPos.x - (float)(iWidth / 2))
+		, (int)(vPos.y - (float)(iHeight / 2))
+		, iWidth, iHeight
+		, m_pTex->GetDC()
+		, 0, 0, SRCCOPY);
+	*/
+
+	// 특정 생상 제거 해서 BitBlt 해주는 함수
+	TransparentBlt(_dc
+		, (int)(vPos.x - (float)(iWidth / 2))
+		, (int)(vPos.y - (float)(iHeight / 2))
+		, iWidth, iHeight
+		, m_pTex->GetDC()
+		, 0, 0, iWidth, iHeight
+		, RGB(255, 0, 255));
+}
+
 void CPlayer::CreateMissile()
 {
 	Vec2 vMissilePos = GetPos();
@@ -51,7 +94,7 @@ void CPlayer::CreateMissile()
 	CMissile* pMissile = new CMissile;
 	pMissile->SetPos(vMissilePos);
 	pMissile->SetScale(Vec2(25.f, 25.f));
-	pMissile->SetDir(Vec2(2.f, -3.f));
+	pMissile->SetDir(Vec2(0.f, -1.f));
 	pMissile->SetSpeed(1000.f);
 
 	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
@@ -74,7 +117,6 @@ void CPlayer::CreateMissile2()
 	pCurScene->AddObject(pMissile, GROUP_TYPE::MISSILE);
 
 }
-
 // 과제
 // 1. 플레이어 미사일 종류 추가 (OK)
 // 2. 몬스터도 미사일 패턴 추가 (OK)

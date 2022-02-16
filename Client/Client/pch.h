@@ -7,6 +7,10 @@
 #include <vector>
 using std::vector;
 
+#include <map>
+using std::map;
+using std::make_pair;
+
 #include <string.h>
 using std::string;
 using std::wstring;
@@ -16,3 +20,5 @@ using std::wstring;
 
 #include "define.h"
 #include "struct.h"
+
+#pragma comment(lib, "Msimg32.lib")

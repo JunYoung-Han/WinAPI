@@ -37,6 +37,12 @@ _In_opt_ HINSTANCE hPrevInstance,
 _In_ LPWSTR    lpCmdLine,
 _In_ int       nCmdShow)
 {
+	// 메모리 릭(누수) 체크
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(215); //  문제 발생시, 해당 지점 중단점 걸어줌.
+
+
+
 	// 윈도우는 각 프로그램마다 고유한 자신만의 영역이 있음. RAM
 	// 실제 물리적으로는 다른 메모리 공간이 할당.
 	// 사용자에게 보여지는 주소는 마치 이 세상에 자신이 혼자만 있는 것처럼 느끼게

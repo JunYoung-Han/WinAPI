@@ -17,16 +17,6 @@ CScene_Start::~CScene_Start()
 
 void CScene_Start::Enter()
 {
-	// Texture 로딩
-	CTexture* pTex = new CTexture;
-
-	wstring strFilepath = CPathMgr::GetInst()->GetContentPath();
-	strFilepath += L"texture\\jy5.bmp";
-	pTex->Load(strFilepath);
-	
-
-	delete pTex;
-
 	// Object 추가.
 	CObject* pObj = new CPlayer;
 
