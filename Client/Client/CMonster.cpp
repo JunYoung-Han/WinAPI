@@ -16,6 +16,7 @@ CMonster::CMonster()
 	, m_fAcc(0)
 	, m_bMissileType(true)
 {
+	CreateCollider();
 }
 
 CMonster::~CMonster()

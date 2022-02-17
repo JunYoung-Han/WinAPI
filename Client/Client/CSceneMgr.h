@@ -14,6 +14,7 @@ private:
 
 public:
 	void init();
+	// Object 조작 함수.
 	void update();
 	void render(HDC _pMemDC);
 

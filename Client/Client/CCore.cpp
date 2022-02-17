@@ -15,6 +15,8 @@ CCore::CCore()
 	, m_hDC(0)
 	, m_hBit(0)
 	, m_memDC(0)
+	, m_arrBrush{}
+	, m_arrPen{}
 {
 }
 
@@ -24,6 +26,12 @@ CCore::~CCore()
 
 	DeleteDC(m_memDC);
 	DeleteObject(m_hBit);
+
+	for (int i = 0; i < (UINT)PEN_TYPE::END; ++i)
+	{
+		DeleteObject(m_arrPen[i]);
+	}
+
 }
 
 int CCore::init(HWND _hWnd, POINT _ptResolution)
@@ -49,7 +57,8 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 	HBITMAP hOldBit = (HBITMAP)SelectObject(m_memDC, m_hBit);
 	// 기본으로 나오는 1픽셀 제거.
 	DeleteObject(hOldBit);
-
+	// 자주 사용할 펜 및 브러쉬 생성
+	CreateBrushPen();
 
 	// Manager 초기화
 	CPathMgr::GetInst()->init();
@@ -88,6 +97,17 @@ void CCore::progress()
 		, m_memDC, 0, 0, SRCCOPY);
 
 	// CTimeMgr::GetInst()->render();
+}
+
+void CCore::CreateBrushPen()
+{
+	// hollow brush
+	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+
+	// red blue green pen
+	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 }
 
 
