@@ -5,7 +5,7 @@
 #include "CMissile2.h"
 #include "CScene.h"
 #include "CSceneMgr.h"
-
+#include "CCollider.h"
 
 
 CMonster::CMonster()
@@ -17,6 +17,7 @@ CMonster::CMonster()
 	, m_bMissileType(true)
 {
 	CreateCollider();
+	GetCollider()->SetScale(Vec2(40.f, 40.f));
 }
 
 CMonster::~CMonster()

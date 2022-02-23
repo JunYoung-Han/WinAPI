@@ -20,8 +20,8 @@ CPlayer::CPlayer()
 	m_pTex = CResMgr::GetInst()->LoadTexture(L"jy", L"texture\\jy64.bmp");
 
 	CreateCollider();
-
-	GetCollider()->SetScale(Vec2(100.f, 100.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	GetCollider()->SetScale(Vec2(35.f, 40.f));
 }
 
 CPlayer::~CPlayer()

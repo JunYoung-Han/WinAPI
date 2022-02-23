@@ -28,7 +28,7 @@ void CCollider::finalupdate()
 
 void CCollider::render(HDC _dc)
 {
-	SelectGDI p(_dc, PEN_TYPE::RED);
+	SelectGDI p(_dc, PEN_TYPE::GREEN);
 	SelectGDI b(_dc, BRUSH_TYPE::HOLLOW);
 
 	Rectangle(_dc
