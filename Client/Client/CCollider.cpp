@@ -5,8 +5,13 @@
 
 #include "SelectGDI.h"
 
+UINT CCollider::g_iNextID = 0;
+
 CCollider::CCollider()
-	: m_pOwner(nullptr)/*
+	: m_pOwner(nullptr)
+	// CCollider가 생성될때마다 아이디가 증가하면서 절대 겹쳐지지 않는다.
+	, m_iID(g_iNextID++)
+	/*
 	, m_vFinalPos()
 	, m_vOffsetPos()
 	, m_vScale()*/

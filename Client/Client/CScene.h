@@ -30,12 +30,14 @@ public:
 	{
 		m_arrObj[(UINT)_eType].push_back(_Obj);
 	}
+	// 원본을 줄려고 참조로 준다.
+	const vector<CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
 
 
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
-	
+
 	void update();
 	// 작업을 마무리. -ex) 충돌체가 플레이어를 따라가게 하는 일.
 	void finalupdate();
