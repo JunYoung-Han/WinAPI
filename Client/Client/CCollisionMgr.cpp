@@ -37,6 +37,7 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 	// 현재씬에서 iRow와 iCol에 있는 물체들의 정보를 가져와야함.
 	const vector<CObject*>& vecLeft = pCurScene->GetGroupObject(_eLeft);
 	const vector<CObject*>& vecRight = pCurScene->GetGroupObject(_eRight);
+	map<ULONGLONG, bool>::iterator iter;
 
 	for (size_t i = 0; i < vecLeft.size(); ++i)
 	{
@@ -51,14 +52,53 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 				|| vecLeft[i] == vecRight[j])
 				continue;
 
+			CCollider* pLeftCol = vecLeft[i]->GetCollider();
+			CCollider* pRightCol = vecRight[i]->GetCollider();
+
+			// 두 충돌체 조합 아이디 생성.
+			COLLIDER_ID ID;
+			ID.Left_id = pLeftCol->GetID();
+			ID.Right_id = pRightCol->GetID();
+			ID.ID; // 두 충돌체로만 나올수 있는 값이 나오게 된다. -> 맵의 key값으로 쓰겠다.
+
+			iter = m_mapColInfo.find(ID.ID);
+
+			// 충돌 정보가 미 등록 상태인 경우 등록('충돌하지 않았다' 로)
+			if (m_mapColInfo.end() == iter)
+			{
+				m_mapColInfo.insert(make_pair(ID.ID, false));
+				iter = m_mapColInfo.find(ID.ID);
+			}
+
 			// 이제 제대로 충돌 검사 해보자.
-			if (IsCollision(vecLeft[i]->GetCollider(), vecRight[i]->GetCollider()))
+			// 현재 충돌 중이다.
+			if (IsCollision(pLeftCol, pRightCol))
 			{
 
+				if (iter->second)
+				{
+					// 이전에도 충돌 하고 있었다.
+					pLeftCol->OnCollision(pRightCol);
+					pRightCol->OnCollision(pLeftCol);
+				}
+				else
+				{
+					// 이전에는 충돌하지 않았다.(충돌 진입)
+					pLeftCol->OnCollisionEnter(pRightCol);
+					pRightCol->OnCollisionEnter(pLeftCol);
+					iter->second = true;
+				}
 			}
+			// 현재 충돌하고 있지 않다.
 			else
 			{
-
+				// 이전에는 충돌 하고 있었다.
+				if (iter->second)
+				{
+					pLeftCol->OnCollisionExit(pRightCol);
+					pRightCol->OnCollisionExit(pLeftCol);
+					iter->second = false;
+				}
 			}
 
 		}
