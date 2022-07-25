@@ -1,4 +1,8 @@
 #pragma once
+
+#include "MonsterFactory.h"
+
+
 // 한 씬의 오브젝트들을 관리
 // 씬 안에 디폴트 그룹, 몬스터, 플레이어 등등 있는거.
 
@@ -23,13 +27,15 @@ private:
 	vector<CObject*>	m_arrObj[(UINT)GROUP_TYPE::END]; // 오브젝트를 저장 및 관리할 벡터를 그룹 개수만큼 선언
 	wstring				m_strName; // Scene 이름
 
+
+	CObject* m_pPlayer; // Player의 주소값을 씬이 가지고 있다.
+
+
 // protected:
 public:
 	// 헤더에 함수 구현하여 inline화
-	void AddObject(CObject* _Obj, GROUP_TYPE _eType)
-	{
-		m_arrObj[(UINT)_eType].push_back(_Obj);
-	}
+	void AddObject(CObject* _Obj, GROUP_TYPE _eType) { m_arrObj[(UINT)_eType].push_back(_Obj); }
+	void RegisterPlayer(CObject* _pPlayer) { m_pPlayer = _pPlayer; }
 	// 원본을 줄려고 참조로 준다.
 	const vector<CObject*>& GetGroupObject(GROUP_TYPE _eType) { return m_arrObj[(UINT)_eType]; }
 
@@ -37,6 +43,8 @@ public:
 public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
+
+	CObject* GetPlayer() { return m_pPlayer; }
 
 	void update();
 	// 작업을 마무리. -ex) 충돌체가 플레이어를 따라가게 하는 일.

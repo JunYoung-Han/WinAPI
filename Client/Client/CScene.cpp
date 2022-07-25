@@ -2,6 +2,7 @@
 #include "CScene.h"
 #include "CObject.h"
 
+
 CScene::CScene()
 {
 }

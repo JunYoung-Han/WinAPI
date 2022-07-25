@@ -1,5 +1,4 @@
 #pragma once
-#include "State.h"
 
 
 //
@@ -10,6 +9,7 @@
 //
 
 class CMonster;
+class CState;
 
 class AI
 {
@@ -25,9 +25,16 @@ public:
 
 public:
 	void AddState(CState* _pState);
+	CState* FindState(MON_STATE _eState);
+	void SetCurState(MON_STATE _eState);
 
+	void ChangeState(MON_STATE _eNextState);
+
+	CMonster* GetOwner() { return m_pOwner; }
 
 public:
 	AI();
 	~AI();
+
+	friend class CMonster;
 };

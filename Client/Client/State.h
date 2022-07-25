@@ -1,15 +1,18 @@
 #pragma once
-//class AI;
+#include "CMonster.h"
+
+class AI;
 
 class CState
 {
-private:
+protected:
 	class AI* m_pAI;
 	MON_STATE	m_eState;
 
 public:
 	class AI* GetAI() { return m_pAI; }
-
+	MON_STATE GetType() { return m_eState; }
+	class CMonster* GetMonster();
 
 public:
 	virtual void update()	PURE;

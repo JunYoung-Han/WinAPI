@@ -144,7 +144,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_CLIENT);
+	wcex.lpszMenuName = nullptr; // MAKEINTRESOURCEW(IDC_CLIENT);
 	wcex.lpszClassName = L"Key";
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -262,9 +262,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	// 해당 윈도우가 포커싱 된 상태에서 키보드 키가 눌리면 발생.
 	case WM_KEYDOWN:
 	{
-	case VK_ESCAPE:
-		PostQuitMessage(0);
-		break;
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			PostQuitMessage(0);
+			break;
+		}
 	}
 	break;
 

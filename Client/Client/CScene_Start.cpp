@@ -7,6 +7,9 @@
 #include "CTexture.h"
 #include "CPathMgr.h"
 #include "CCollisionMgr.h"
+#include "IdleState.h"
+#include "TraceState.h"
+
 
 CScene_Start::CScene_Start()
 {
@@ -18,9 +21,6 @@ CScene_Start::~CScene_Start()
 
 void CScene_Start::Enter()
 {
-
-
-
 	// Object 추가.
 	CObject* pObj = new CPlayer;
 
@@ -32,28 +32,13 @@ void CScene_Start::Enter()
 	// 부모에 함수 만들어서 사용.
 	AddObject(pObj, GROUP_TYPE::PLAYER);
 
-	{
-		// Monster Object 추가.
-		// 몬스터 배치
-		int iMonCount = 10;
-		float fMoveDist = 25.f;
-		float fObjScale = 50.f;
-		Vec2 vResolution = CCore::GetInst()->GetResolution();
-		float fTerm = (vResolution.x - ((fMoveDist + fObjScale / 2.f) * 2)) / (float)(iMonCount - 1);
+	RegisterPlayer(pObj);
 
-		CMonster* pMonsterObj = nullptr;
-		for (int i = 0; i < iMonCount; ++i)
-		{
-			// Monster Object 추가.
-			// : 다운캐스팅 해야하니 부모(CObject)가 아닌 자식(CMonster) 객체 생성
-			pMonsterObj = new CMonster;
-			pMonsterObj->SetPos(Vec2((fMoveDist + fObjScale / 2.f) + (fTerm * (float)i), 50.f));
-			pMonsterObj->SetCenterPos(pMonsterObj->GetPos());
-			pMonsterObj->SetScale(Vec2(fObjScale, fObjScale));
-			pMonsterObj->SetMaxDistance(fMoveDist);
-			AddObject(pMonsterObj, GROUP_TYPE::MONSTER);
-		}
-	}
+	// Monster Object 추가.
+	// 몬스터 배치
+	Vec2 vResolution = CCore::GetInst()->GetResolution();
+	CMonster* pMonster = CMonsterFactory::CreateMonster(MONSTER_TYPE::NORMAL, vResolution / 2.f - Vec2(0.f, 300.f));
+	AddObject(pMonster, GROUP_TYPE::MONSTER); // GameObject List 가 되겠지. 아니면 Layer_Monster 정도.
 
 	// 충돌 지정
 	// Player 그룹과 Monster 그룹간의 충돌 체크

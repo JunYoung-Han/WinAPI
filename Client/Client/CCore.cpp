@@ -6,6 +6,8 @@
 #include "CSceneMgr.h"
 #include "CPathMgr.h"
 #include "CCollisionMgr.h"
+#include "SelectGDI.h"
+#include "resource.h"
 
 // CObject g_obj;
 
@@ -31,7 +33,7 @@ CCore::~CCore()
 	{
 		DeleteObject(m_arrPen[i]);
 	}
-
+	DestroyMenu(m_hMenu);
 }
 
 int CCore::init(HWND _hWnd, POINT _ptResolution)
@@ -39,12 +41,13 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 	m_hWnd = _hWnd;
 	m_ptResolution = _ptResolution;
 
+
 	// 해상도에 맞게 윈도우 크기 조정.
-	RECT rt = { 0, 0, m_ptResolution.x , m_ptResolution.y };
-	// 지정된 해상도에 테두리, 메뉴바의 크기를 포함하여 다시 rt에 반환
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, true);
-	// 윈도우의 위치와 크기를 조정해주는 함수
-	SetWindowPos(m_hWnd, nullptr, 300, 300, rt.right - rt.left, rt.bottom - rt.top, 0);
+	ChangeWindowSize(Vec2((float)_ptResolution.x, (float)_ptResolution.y), false);
+
+	// 메뉴바 생성. -> FSM(3) 강의에서 함.
+	m_hMenu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_CLIENT));
+
 
 	m_hDC = GetDC(m_hWnd);
 
@@ -89,7 +92,7 @@ void CCore::progress()
 	// Rendering 
 	// =============
 	// 화면 Clear
-	Rectangle(m_memDC, -1, -1, m_ptResolution.x + 1, m_ptResolution.y + 1);
+	Clear();
 
 	CSceneMgr::GetInst()->render(m_memDC);
 
@@ -100,15 +103,47 @@ void CCore::progress()
 	// CTimeMgr::GetInst()->render();
 }
 
+void CCore::Clear()
+{
+	SelectGDI gdi(m_memDC, BRUSH_TYPE::BLACK);
+	Rectangle(m_memDC, -1, -1, m_ptResolution.x + 1, m_ptResolution.y + 1);
+	// 함수 종료시점에 소멸자에서 gdi 다시 초기화 해줌.
+}
+
 void CCore::CreateBrushPen()
 {
 	// hollow brush
 	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+	m_arrBrush[(UINT)BRUSH_TYPE::BLACK] = (HBRUSH)GetStockObject(BLACK_BRUSH);
 
 	// red blue green pen
 	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+}
+
+// 툴씬에서는 메뉴바 생성해주기 때문에 만든 함수.
+void CCore::DockMenu()
+{
+	SetMenu(m_hWnd, m_hMenu);
+	ChangeWindowSize(GetResolution(), true);
+}
+
+void CCore::DivideMenu()
+{
+	SetMenu(m_hWnd, nullptr);
+	ChangeWindowSize(GetResolution(), false);
+}
+
+void CCore::ChangeWindowSize(Vec2 _vResolution, bool _bMenu)
+{
+	// 해상도에 맞게 윈도우 크기 조정.
+	RECT rt = { (LONG)0, (LONG)0, (LONG)_vResolution.x , (LONG)_vResolution.y };
+	// 지정된 해상도에 테두리, 메뉴바의 크기를 포함하여 다시 rt에 반환
+	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _bMenu); // 메뉴바 없는걸로 계산.
+	// 윈도우의 위치와 크기를 조정해주는 함수
+	SetWindowPos(m_hWnd, nullptr, 300, 300, rt.right - rt.left, rt.bottom - rt.top, 0);
+
 }
 
 

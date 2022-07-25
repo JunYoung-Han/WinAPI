@@ -10,12 +10,6 @@
 
 
 CMonster::CMonster()
-	: m_vCenterPos(0, 0)
-	, m_fSpeed(200.f)
-	, m_fMaxDistance(50.f)
-	, m_iDir(1)
-	, m_fAcc(0)
-	, m_bMissileType(true)
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(40.f, 40.f));
@@ -26,7 +20,11 @@ CMonster::~CMonster()
 	if (nullptr != m_pAI)
 		delete m_pAI;
 }
-
+void CMonster::SetAI(AI* _pAI)
+{
+	m_pAI = _pAI;
+	m_pAI->m_pOwner = this;
+}
 void CMonster::update()
 {
 	m_pAI->update();

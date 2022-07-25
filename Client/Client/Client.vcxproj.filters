@@ -95,6 +95,12 @@
     <Filter Include="Engine\08. Module\AI\State\Dead">
       <UniqueIdentifier>{9dc5023b-a9ed-4efb-8378-bd113203f514}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\09. Factory">
+      <UniqueIdentifier>{4efdbdeb-410d-4b0a-837e-a6c28e94b92a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\09. Factory\MonsterFactory">
+      <UniqueIdentifier>{59dbb487-aea6-40c9-be08-bb46e7f4bd89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCore.h">
@@ -182,6 +188,15 @@
     <ClInclude Include="IdleState.h">
       <Filter>Engine\08. Module\AI\State\Idle</Filter>
     </ClInclude>
+    <ClInclude Include="TraceState.h">
+      <Filter>Engine\08. Module\AI\State\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterFactory.h">
+      <Filter>Engine\09. Factory\MonsterFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>Engine\01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -263,6 +278,15 @@
     </ClCompile>
     <ClCompile Include="IdleState.cpp">
       <Filter>Engine\08. Module\AI\State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="TraceState.cpp">
+      <Filter>Engine\08. Module\AI\State\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterFactory.cpp">
+      <Filter>Engine\09. Factory\MonsterFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>Engine\01. Header</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
