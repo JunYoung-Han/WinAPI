@@ -8,6 +8,7 @@
 #include "CCollider.h"
 
 
+
 CMonster::CMonster()
 	: m_vCenterPos(0, 0)
 	, m_fSpeed(200.f)
@@ -22,10 +23,14 @@ CMonster::CMonster()
 
 CMonster::~CMonster()
 {
+	if (nullptr != m_pAI)
+		delete m_pAI;
 }
 
 void CMonster::update()
 {
+	m_pAI->update();
+#if 0
 	Vec2 vCurPos = GetPos();
 
 	// 진행 방향으로 시간당 m_fSpeed 만큼 이동
@@ -58,6 +63,8 @@ void CMonster::update()
 	}
 
 	SetPos(vCurPos);
+#endif // 0
+
 }
 
 

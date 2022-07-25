@@ -26,7 +26,6 @@ void CCollisionMgr::update()
 			{
 				CollisionGroupUpdate((GROUP_TYPE)iRow, (GROUP_TYPE)iCol);
 			}
-
 		}
 	}
 }

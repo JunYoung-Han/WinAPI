@@ -77,6 +77,21 @@
     <Filter Include="Engine\03. Manager\CollisionMgr">
       <UniqueIdentifier>{2babd93d-2eec-41b8-91fc-5be8eedd5f21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\08. Module\AI">
+      <UniqueIdentifier>{b4325ba4-3698-44cd-bea0-3af2c6678692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\08. Module\AI\State">
+      <UniqueIdentifier>{851bb0f4-3de1-4bce-9e96-3249cda9abef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\08. Module\AI\State\Idle">
+      <UniqueIdentifier>{8dd169a0-cd04-449a-8466-b2e1d62b1ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\08. Module\AI\State\Attack">
+      <UniqueIdentifier>{05ade951-fb10-4781-a6c7-74783ec23059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\08. Module\AI\State\Trace">
+      <UniqueIdentifier>{89cabc46-93e6-4f28-88dc-5c3228dc2f16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCore.h">
@@ -155,6 +170,13 @@
     <ClInclude Include="CCollisionMgr.h">
       <Filter>Engine\03. Manager\CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Engine\08. Module\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Engine\08. Module\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -228,5 +250,12 @@
     <ClCompile Include="CCollisionMgr.cpp">
       <Filter>Engine\03. Manager\CollisionMgr</Filter>
     </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Engine\08. Module\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Engine\08. Module\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp" />
   </ItemGroup>
 </Project>

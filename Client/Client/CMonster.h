@@ -1,5 +1,6 @@
 #pragma once
 #include "CObject.h"
+#include "AI.h"
 
 class CMonster :
     public CObject
@@ -11,6 +12,8 @@ private:
     float   m_fSpeed;
     float   m_fMaxDistance;
     int     m_iDir; // 1, -1
+
+    AI* m_pAI;
 
 public:
     float GetSpeed() { return m_fSpeed; }

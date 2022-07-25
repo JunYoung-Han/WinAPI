@@ -68,3 +68,23 @@ enum class PEN_TYPE
 	BLUE,
 	END,
 };
+
+enum class EVENT_TYPE
+{
+	CREATE_OBJECT,
+	DELETE_OBJECT,
+	SCENE_OBJECT,
+	END
+};
+
+enum class MON_STATE
+{
+	IDLE,
+	PATROL,
+	TRACE,
+	ATTACK,
+	RUN,
+	DEAD, // 죽는 상태일때 다른 행동을 할 수 도 있음. (복제만든다 던지)
+	END
+};
+
