@@ -92,6 +92,9 @@
     <Filter Include="Engine\08. Module\AI\State\Trace">
       <UniqueIdentifier>{89cabc46-93e6-4f28-88dc-5c3228dc2f16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\08. Module\AI\State\Dead">
+      <UniqueIdentifier>{9dc5023b-a9ed-4efb-8378-bd113203f514}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCore.h">
@@ -176,7 +179,9 @@
     <ClInclude Include="State.h">
       <Filter>Engine\08. Module\AI\State</Filter>
     </ClInclude>
-    <ClInclude Include="IdleState.h" />
+    <ClInclude Include="IdleState.h">
+      <Filter>Engine\08. Module\AI\State\Idle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -256,6 +261,8 @@
     <ClCompile Include="State.cpp">
       <Filter>Engine\08. Module\AI\State</Filter>
     </ClCompile>
-    <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Engine\08. Module\AI\State\Idle</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
