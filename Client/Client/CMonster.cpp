@@ -98,3 +98,24 @@ void CMonster::CreateMissile2()
 	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
 	pCurScene->AddObject(pMissile, GROUP_TYPE::MISSILE);
 }
+
+void CMonster::OnCollisionEnter(CCollider* _pOther)
+{
+	//CreateMissile();
+	CObject* pOtherObj =  _pOther->GetObj();
+
+	/*if (pOtherObj->GetName() == L"Missile")
+	{
+
+	}*/
+}
+
+void CMonster::OnCollision(CCollider* _pOther)
+{
+
+}
+
+void CMonster::OnCollisionExit(CCollider* _pOther)
+{
+	CreateMissile2();
+}
