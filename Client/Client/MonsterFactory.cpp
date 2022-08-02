@@ -28,10 +28,11 @@ CMonster* CMonsterFactory::CreateMonster(MONSTER_TYPE _eType, Vec2 _vPos)
 		info.fAttackPower = 10.f;
 		info.fAttRange = 50.f;
 		info.fRecogRange = 300.f;
-		info.fHP = 100.f;
+		info.fHP = 10.f;
 		info.fSpeed = 150.f;
 
 		pMonster->SetMonsterInfo(info);
+		pMonster->SetName(L"Monster");
 
 		AI* pAI = new AI; // 그때 결정되는 상태 초기화
 		pAI->AddState(new CIdleState);

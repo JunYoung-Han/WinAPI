@@ -8,6 +8,7 @@
 #include "CCollisionMgr.h"
 #include "SelectGDI.h"
 #include "resource.h"
+#include "EventMgr.h"
 
 // CObject g_obj;
 
@@ -78,15 +79,23 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 void CCore::progress()
 {
-	// CCore 함수.
-	// update();
-	// render();
-
+	// =============
 	// Manager Update
+	// =============
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
+
+
+
+	// =============
+	// Scene Update 
+	// =============
 	CSceneMgr::GetInst()->update();
+
+	// 충돌 체크.
 	CCollisionMgr::GetInst()->update();
+
+
 
 	// =============
 	// Rendering 
@@ -100,7 +109,16 @@ void CCore::progress()
 	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y
 		, m_memDC, 0, 0, SRCCOPY);
 
-	// CTimeMgr::GetInst()->render();
+	CTimeMgr::GetInst()->render();
+
+
+	// =============
+	// 이벤트 지연 처리. 
+	// =============
+	// 한 프레임 랜더링 끝나고 마지막에 처리되면 다음번 프레임에 적용된다.
+	// (생성, 소멸, SCENE_CHANGE 등등)
+	CEventMgr::GetInst()->update();
+
 }
 
 void CCore::Clear()

@@ -29,6 +29,10 @@ public:
 	virtual void update();
 	virtual void render(HDC _dc);
 
+	virtual void OnCollisionEnter(CCollider* _pOther) 	 override;
+	virtual void OnCollision(CCollider* _pOther) 		 override;
+	virtual void OnCollisionExit(CCollider* _pOther) 	 override;
+
 public:
 	CMissile();
 	~CMissile();

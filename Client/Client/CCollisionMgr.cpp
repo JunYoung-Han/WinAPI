@@ -73,21 +73,41 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 			}
 
 			// 이제 제대로 충돌 검사 해보자.
-			// 현재 충돌 중이다.
 			if (IsCollision(pLeftCol, pRightCol))
 			{
+				// 현재 충돌 중이다.
+
 				if (iter->second)
 				{
 					// 이전에도 충돌 하고 있었다.
-					pLeftCol->OnCollision(pRightCol);
-					pRightCol->OnCollision(pLeftCol);
+
+					// 충돌 중인 상태인데 한놈이라도 이번 프레임 마지막에 삭제당할 녀석이면,
+					// 충돌 벗어나는 처리로 해줘야함.
+					if (vecLeft[i]->IsDead() || vecRight[i]->IsDead())
+					{
+						pLeftCol->OnCollisionExit(pRightCol);
+ 						pRightCol->OnCollisionExit(pLeftCol);
+						iter->second = false;
+					}
+					else
+					{
+						pLeftCol->OnCollision(pRightCol);
+						pRightCol->OnCollision(pLeftCol);
+					}
 				}
 				else
 				{
 					// 이전에는 충돌하지 않았다.(충돌 진입)
-					pLeftCol->OnCollisionEnter(pRightCol);
-					pRightCol->OnCollisionEnter(pLeftCol);
-					iter->second = true;
+
+					// 하필 충돌되는 타이밍에 한놈이라도 프레임 마지막에 삭제당하는 녀석이면,
+					// 그냥 충돌을 안한 셈 쳐줘 
+					// == 둘다 살아있을 녀석인 경우에만 OnCollisionEnter 해줘
+					if (!vecLeft[i]->IsDead() && !vecRight[i]->IsDead())
+					{
+						pLeftCol->OnCollisionEnter(pRightCol);
+						pRightCol->OnCollisionEnter(pLeftCol);
+						iter->second = true;
+					}
 				}
 			}
 			// 현재 충돌하고 있지 않다.
@@ -108,18 +128,31 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 
 bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)
 {
-	
+
 	Vec2 vLeftPos = _pLeftCol->GetFinalPos();
 	Vec2 vLeftScale = _pLeftCol->GetScale();
-	
+
 	Vec2 vRightPos = _pRightCol->GetFinalPos();
 	Vec2 vRightScale = _pRightCol->GetScale();
 
+	float fDiff_X = abs(vRightPos.x - vLeftPos.x);
+	float fScale_X = (vLeftScale.x + vRightScale.x) * 0.5;
+
+	float fDiff_Y = abs(vRightPos.y - vLeftPos.y);
+	float fScale_Y = (vLeftScale.y + vRightScale.y) * 0.5;
+
+	if ((fDiff_X < fScale_X) && (fDiff_Y < fScale_Y))
+	{
+		return true;
+	}
+#if 0
 	if (abs(vRightPos.x - vLeftPos.x) < (vLeftScale.x + vRightScale.x) / 2.f
 		&& abs(vRightPos.y - vLeftPos.y) < (vLeftScale.y + vRightScale.y) / 2.f)
 	{
 		return true;
 	}
+#endif // 0
+
 
 	return false;
 }

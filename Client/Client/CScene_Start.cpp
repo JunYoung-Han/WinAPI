@@ -43,6 +43,7 @@ void CScene_Start::Enter()
 	// 충돌 지정
 	// Player 그룹과 Monster 그룹간의 충돌 체크
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
+	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PROJ_PLAYER, GROUP_TYPE::MONSTER);
 }
 
 // Start 씬 빠져나갈 때.

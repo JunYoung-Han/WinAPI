@@ -11,6 +11,16 @@ AI::AI()
 AI::~AI()
 {
 	//Safe_Delete_Map(m_mapState);
+
+	for (auto& Pair : m_mapState)
+	{
+		if (Pair.second)
+		{
+			delete Pair.second;
+			Pair.second = nullptr;
+		}
+	}
+	m_mapState.clear();
 }
 
 void AI::update()

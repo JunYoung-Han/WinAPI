@@ -10,6 +10,7 @@
 
 
 CMonster::CMonster()
+	: m_pAI(nullptr)
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(40.f, 40.f));
@@ -78,8 +79,11 @@ void CMonster::CreateMissile()
 	pMissile->SetDir(false);
 	pMissile->SetSpeed(200.f);
 
-	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
-	pCurScene->AddObject(pMissile, GROUP_TYPE::MISSILE);
+
+
+	// 이벤트 등록형식으로 바꿀 예정.
+	//CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
+	//pCurScene->AddObject(pMissile, GROUP_TYPE::MISSILE);
 }
 
 void CMonster::CreateMissile2()
@@ -96,18 +100,22 @@ void CMonster::CreateMissile2()
 	pMissile->SetSpeed(200.f);
 
 	CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
-	pCurScene->AddObject(pMissile, GROUP_TYPE::MISSILE);
+	pCurScene->AddObject(pMissile, GROUP_TYPE::PROJ_MONSTER);
 }
 
 void CMonster::OnCollisionEnter(CCollider* _pOther)
 {
-	//CreateMissile();
-	CObject* pOtherObj =  _pOther->GetObj();
+	CObject* pOtherObj = _pOther->GetObj();
 
-	/*if (pOtherObj->GetName() == L"Missile")
+	if (pOtherObj->GetName() == L"Missile_Player")
 	{
+		//m_tInfo.fHP -= 1.f;
+		//if (0 >= m_tInfo.fHP)
+		//{
+		//	DeleteObject(this);
+		//}
 
-	}*/
+	}
 }
 
 void CMonster::OnCollision(CCollider* _pOther)

@@ -2,6 +2,7 @@
 #include "CMissile.h"
 
 #include "CTimeMgr.h"
+#include "CCollider.h"
 
 CMissile::CMissile()
 	: m_fSpeed(600.f)
@@ -10,6 +11,8 @@ CMissile::CMissile()
 {
 	m_vDir.Normalize();
 	CreateCollider();
+	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	GetCollider()->SetScale(Vec2(15.f, 15.f));
 }
 
 CMissile::~CMissile()
@@ -32,6 +35,13 @@ void CMissile::update()
 
 
 	SetPos(vPos);
+	vPos = GetPos();
+	if (0 >= vPos.y)
+	{
+		DeleteObject(this);
+
+	}
+
 }
 
 void CMissile::render(HDC _dc)
@@ -41,4 +51,26 @@ void CMissile::render(HDC _dc)
 
 	Ellipse(_dc, (int)(vPos.x - vScale.x / 2.f), (int)(vPos.y - vScale.y / 2.f)
 		, (int)(vPos.x + vScale.x / 2.f), (int)(vPos.y + vScale.y / 2.f));
+	// 컴포넌트 (충돌체, etc..) 가 있는 경우 렌더링
+	component_render(_dc);
+}
+
+void CMissile::OnCollisionEnter(CCollider* _pOther)
+{
+	CObject* pOtherObj = _pOther->GetObj();
+
+	//if (!IsDead() && !pOtherObj->IsDead() 
+	//	&& pOtherObj->GetName() == L"Monster")
+	if (pOtherObj->GetName() == L"Monster")
+	{
+		DeleteObject(this);
+	}
+}
+
+void CMissile::OnCollision(CCollider* _pOther)
+{
+}
+
+void CMissile::OnCollisionExit(CCollider* _pOther)
+{
 }
