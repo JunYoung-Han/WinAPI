@@ -101,6 +101,9 @@
     <Filter Include="Engine\09. Factory\MonsterFactory">
       <UniqueIdentifier>{59dbb487-aea6-40c9-be08-bb46e7f4bd89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\EventMgr">
+      <UniqueIdentifier>{c9271b0a-2f9b-49b5-812d-4ea5824728a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCore.h">
@@ -197,6 +200,7 @@
     <ClInclude Include="func.h">
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
+    <ClInclude Include="EventMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -288,5 +292,6 @@
     <ClCompile Include="func.cpp">
       <Filter>Engine\01. Header</Filter>
     </ClCompile>
+    <ClCompile Include="EventMgr.cpp" />
   </ItemGroup>
 </Project>
