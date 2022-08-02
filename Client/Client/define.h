@@ -34,6 +34,8 @@
 #define KEY_AWAY(key)	KEY_CHECK(key, KEY_STATE::AWAY)
 #define KEY_NONE(key)	KEY_CHECK(key, KEY_STATE::NONE)
 #define PI	3.141592
+
+// UINT m_arrCheck[행] 의 자료형이 UINT (4 byte == 32bit)라서 32개
 enum class GROUP_TYPE
 {
 	DEFAULT,
@@ -41,7 +43,7 @@ enum class GROUP_TYPE
 	MISSILE,
 	MONSTER,
 
-	END = 32,
+	END, //32
 };
 
 // 씬 구성.

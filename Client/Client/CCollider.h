@@ -19,7 +19,7 @@ private:
 	Vec2	m_vScale;		// 충돌체의 크기
 
 	UINT	m_iID;			// 충돌체 고유한 ID 값 (~42억개)
-	UINT	m_iCol;
+	UINT	m_iCol;			// 충돌 된 객체들 갯수 세기 용
 
 public:
 	void SetOffsetPos(Vec2 _vPos) { m_vOffsetPos = _vPos; }
@@ -46,6 +46,7 @@ public:
 	// ★ 이런것도 되네?!?!?!?!?!?!?!?!?
 	// CColiider a, b;  a = b  가 되는 것을 방지.
 	// Collider 끼리 대입이 되지 않도록 하기 위해.
+	// 대입연산자 없앤것과 같다.
 	CCollider& operator = (CCollider& _origin) = delete;
 
 

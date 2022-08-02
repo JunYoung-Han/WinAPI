@@ -9,6 +9,7 @@ union COLLIDER_ID
 		UINT Right_id;
 	};
 	// 두 값의 비트가 합쳐지는걸 이용해서 고유한 값을 만드는거라니..신기합니다!
+	// UINT m_arrCheck[행] 의 자료형이 UINT (4 byte == 32bit)라서 32개
 	ULONGLONG ID;
 };
 
@@ -24,7 +25,7 @@ private:
 public:
 	void update();
 	void CheckGroup(GROUP_TYPE _eLeft, GROUP_TYPE _eRight);
-	void Reset() { memset(m_arrCheck, 0, sizeof(UINT) * (UINT)GROUP_TYPE::END); }
+	void ResetGroup() { memset(m_arrCheck, 0, sizeof(UINT) * (UINT)GROUP_TYPE::END); }
 
 private:
 	void CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight);

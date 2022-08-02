@@ -48,6 +48,6 @@ void CScene_Start::Enter()
 // Start 씬 빠져나갈 때.
 void CScene_Start::Exit()
 {
-	CCollisionMgr::GetInst()->Reset();
+	CCollisionMgr::GetInst()->ResetGroup();
 }
 

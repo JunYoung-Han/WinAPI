@@ -15,10 +15,13 @@ CCollisionMgr::~CCollisionMgr()
 {
 }
 
+// bit 값이 true면 해당 행그룹과 열그룹의 충돌을 검사한다.
 void CCollisionMgr::update()
 {
+	// 행
 	for (UINT iRow = 0; iRow < (UINT)GROUP_TYPE::END; ++iRow)
 	{
+		// 열
 		for (UINT iCol = iRow; iCol < (UINT)GROUP_TYPE::END; ++iCol)
 		{
 			// 각 행의 열자리가 ON되어있는지 확인
@@ -73,7 +76,6 @@ void CCollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 			// 현재 충돌 중이다.
 			if (IsCollision(pLeftCol, pRightCol))
 			{
-
 				if (iter->second)
 				{
 					// 이전에도 충돌 하고 있었다.
@@ -131,21 +133,26 @@ void CCollisionMgr::CheckGroup(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 	// 큰 값을 열(비트) 로 사용.
 
 
-	UINT iRow = (UINT)_eLeft;
-	UINT iCol = (UINT)_eRight;
-	// 열이 더 커야한다.
+	UINT iRow = (UINT)_eLeft;	// 행
+	UINT iCol = (UINT)_eRight;	// 열
+
+	// 열이 더 커야한다. -> 대칭쪽에
+	// 행,열 31, ~, 0
+	// 0
+	// ~
+	// 31
 	if (iCol < iRow)
 	{
 		iRow = (UINT)_eRight;
 		iCol = (UINT)_eLeft;
 	}
 
-	if (m_arrCheck[iRow] == (1 << iCol))
+	if (m_arrCheck[iRow] & (1 << iCol)) // 이미 Check 되어있다면,
 	{
-		m_arrCheck[iRow] &= ~(1 << iCol);
+		m_arrCheck[iRow] &= ~(1 << iCol); // Bit 빼기.
 	}
 	else
 	{
-		m_arrCheck[iRow] |= (1 << iCol);
+		m_arrCheck[iRow] |= (1 << iCol); // bit 넣기.
 	}
 }
