@@ -46,7 +46,7 @@ public:
 
 	CObject* GetPlayer() { return m_pPlayer; }
 
-	void update();
+	virtual void update();
 	// 작업을 마무리. -ex) 충돌체가 플레이어를 따라가게 하는 일.
 	void finalupdate();
 	void render(HDC _dc);

@@ -49,8 +49,10 @@ void CMissile::render(HDC _dc)
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
 
-	Ellipse(_dc, (int)(vPos.x - vScale.x / 2.f), (int)(vPos.y - vScale.y / 2.f)
-		, (int)(vPos.x + vScale.x / 2.f), (int)(vPos.y + vScale.y / 2.f));
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(vPos);
+
+	Ellipse(_dc, (int)(vRenderPos.x - vScale.x / 2.f), (int)(vRenderPos.y - vScale.y / 2.f)
+		, (int)(vRenderPos.x + vScale.x / 2.f), (int)(vRenderPos.y + vScale.y / 2.f));
 	// 컴포넌트 (충돌체, etc..) 가 있는 경우 렌더링
 	component_render(_dc);
 }

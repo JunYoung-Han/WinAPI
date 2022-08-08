@@ -42,6 +42,9 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_RETURN,
 	VK_ESCAPE,
 
+	VK_LBUTTON,
+	VK_RBUTTON,
+
 	// LAST,
 };
 
@@ -110,6 +113,14 @@ void CKeyMgr::update()
 				m_vecKey[i].bPrevPush = false;
 			}
 		}
+		// Mouse 위치 계산
+		POINT ptPos = {};
+		GetCursorPos(&ptPos);
+		ScreenToClient(CCore::GetInst()->GetMainHwnd(), &ptPos); // 우리 윈도우 기준으로 했을 때 좌표
+
+
+		m_vCurMousePos = Vec2((float)ptPos.x, (float)ptPos.y);
+
 	}
 	// 윈도우 포커싱 해제상태
 	else

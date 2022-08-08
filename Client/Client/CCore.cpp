@@ -10,6 +10,9 @@
 #include "resource.h"
 #include "EventMgr.h"
 
+#include "Camera.h"
+
+
 // CObject g_obj;
 
 CCore::CCore()
@@ -84,6 +87,7 @@ void CCore::progress()
 	// =============
 	CTimeMgr::GetInst()->update();
 	CKeyMgr::GetInst()->update();
+	CCamera::GetInst()->update();
 
 
 

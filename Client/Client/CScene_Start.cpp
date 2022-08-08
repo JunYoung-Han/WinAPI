@@ -11,7 +11,7 @@
 #include "TraceState.h"
 
 #include "Camera.h"
-
+#include "CKeyMgr.h"
 CScene_Start::CScene_Start()
 {
 }
@@ -33,6 +33,8 @@ void CScene_Start::Enter()
 	// 부모에 함수 만들어서 사용.
 	AddObject(pObj, GROUP_TYPE::PLAYER);
 
+	//CCamera::GetInst()->SetTarget(pObj);
+
 	RegisterPlayer(pObj);
 
 	// Monster Object 추가.
@@ -51,9 +53,22 @@ void CScene_Start::Enter()
 	CCamera::GetInst()->SetLookAt(vResolution / 2.f);
 }
 
+void CScene_Start::update()
+{
+	__super::update();
+
+	if (KEY_TAP(KEY::LBTN))
+	{
+		Vec2 vLookAt = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+		CCamera::GetInst()->SetLookAt(vLookAt);
+		
+	}
+}
+
 // Start 씬 빠져나갈 때.
 void CScene_Start::Exit()
 {
+	
 	CCollisionMgr::GetInst()->ResetGroup();
 }
 

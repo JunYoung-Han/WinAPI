@@ -1,4 +1,5 @@
 #pragma once
+#include "Camera.h"
 
 // : 화면에 존재하는 물체 하나하나
 // : 추상 클래스

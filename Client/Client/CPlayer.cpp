@@ -71,6 +71,8 @@ void CPlayer::render(HDC _dc)
 
 	Vec2 vPos = GetPos();
 
+	Vec2 vRenderPos = CCamera::GetInst()->GetRenderPos(vPos);;
+
 
 	/*
 	BitBlt(_dc
@@ -83,8 +85,8 @@ void CPlayer::render(HDC _dc)
 
 	// 특정 생상 제거 해서 BitBlt 해주는 함수
 	TransparentBlt(_dc
-		, (int)(vPos.x - (float)(iWidth / 2))
-		, (int)(vPos.y - (float)(iHeight / 2))
+		, (int)(vRenderPos.x - (float)(iWidth / 2))
+		, (int)(vRenderPos.y - (float)(iHeight / 2))
 		, iWidth, iHeight
 		, m_pTex->GetDC()
 		, 0, 0, iWidth, iHeight
