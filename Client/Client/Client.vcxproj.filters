@@ -203,6 +203,7 @@
     <ClInclude Include="EventMgr.h">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -297,5 +298,6 @@
     <ClCompile Include="EventMgr.cpp">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
 </Project>

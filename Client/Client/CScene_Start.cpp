@@ -10,6 +10,7 @@
 #include "IdleState.h"
 #include "TraceState.h"
 
+#include "Camera.h"
 
 CScene_Start::CScene_Start()
 {
@@ -44,6 +45,10 @@ void CScene_Start::Enter()
 	// Player 그룹과 Monster 그룹간의 충돌 체크
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CCollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PROJ_PLAYER, GROUP_TYPE::MONSTER);
+
+	// Camera Look 지정
+	Vec2 Resolution = CCore::GetInst()->GetResolution();
+	CCamera::GetInst()->SetLookAt(vResolution / 2.f);
 }
 
 // Start 씬 빠져나갈 때.

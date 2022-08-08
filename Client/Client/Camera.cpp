@@ -1,0 +1,36 @@
+#include "pch.h"
+#include "Camera.h"
+#include "CObject.h"
+
+CCamera::CCamera()
+	: m_pTargetObj(nullptr)
+{
+
+}
+
+CCamera::~CCamera()
+{
+
+}
+
+void CCamera::update()
+{
+	if (m_pTargetObj)
+	{
+		if (m_pTargetObj->IsDead())
+		{
+			m_pTargetObj = nullptr;
+		}
+		else
+		{
+			m_vLookAt = m_pTargetObj->GetPos();
+		}
+	}
+
+	// 화면 중앙좌표와 카메라 LookAt 좌표간의 차이값 계산.
+	CalDiff();
+}
+
+void CCamera::CalDiff()
+{
+}
